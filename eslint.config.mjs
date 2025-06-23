@@ -76,6 +76,8 @@ export default antfu(
       'no-unused-vars': 1,
       'perfectionist/sort-imports': 'off',
       'no-constant-condition': 0,
+      'react-refresh/only-export-components': 'off',
+      'style/comma-dangle': 'off',
 
     },
   },
