@@ -1,11 +1,10 @@
 'use client';
-import { HouseIcon, User } from 'lucide-react';
+import { HouseIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const tabBar = [
   { icon: HouseIcon, title: 'Trang chủ', to: '/' },
-  { icon: User, title: 'Thần số học', to: '/' },
 ];
 
 export function Footer() {
