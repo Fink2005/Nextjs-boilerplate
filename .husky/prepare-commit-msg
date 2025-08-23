@@ -1,7 +1,9 @@
 #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# $1 là file commit message, $2 là commit type (commit, merge, squash, etc)
+# commitizen sẽ ghi message vào $1
 if [ -t 1 ]; then
-  . "$(dirname "$0")/_/husky.sh"
-  cd "$(dirname "$0")/.." &&  exec < /dev/tty && npx cz --hook --yes || true
-else
-  echo "Skipping Commitizen interactive prompt as no TTY is available."
+  exec < /dev/tty
+  npx cz --hook "$1" || true
 fi
