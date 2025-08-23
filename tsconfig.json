@@ -6,10 +6,10 @@
     // Defines JavaScript version and runtime environment
     // ======================================================================
     "target": "es2023",
-    "module": "esnext",
+    "module": "NodeNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["vitest/globals"],
-    "moduleResolution": "bundler",
+    "moduleResolution": "nodenext",
     "isolatedModules": true,
 
     // ======================================================================
@@ -75,5 +75,5 @@
 
   // Files to include/exclude from the project
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.e2e.ts"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".storybook/*.ts", ".next/types/**/*.ts", "**/*.mts", "tailwind.config.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".storybook/*.ts", ".next/types/**/*.ts", "**/*.mts", "tailwind.config.cjs"]
 }

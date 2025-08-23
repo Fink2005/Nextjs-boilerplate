@@ -26,9 +26,7 @@ export default antfu(
     },
 
     // Ignored paths
-    ignores: [
-      'migrations/**/*',
-    ],
+    ignores: ['migrations/**/*'],
   },
   // --- Next.js Specific Rules ---
   {
@@ -44,18 +42,13 @@ export default antfu(
   jsxA11y.flatConfigs.recommended,
   // --- Testing Rules ---
   {
-    files: [
-      '**/*.test.ts?(x)',
-    ],
+    files: ['**/*.test.ts?(x)'],
     ...testingLibrary.configs['flat/react'],
     ...jestDom.configs['flat/recommended'],
   },
   // --- E2E Testing Rules ---
   {
-    files: [
-      '**/*.spec.ts',
-      '**/*.e2e.ts',
-    ],
+    files: ['**/*.spec.ts', '**/*.e2e.ts'],
     ...playwright.configs['flat/recommended'],
   },
   // --- Custom Rule Overrides ---
@@ -83,7 +76,6 @@ export default antfu(
       'format/prettier': 'off',
       'ts/consistent-type-definitions': 'off',
       'react-hooks-extra/no-direct-set-state-in-use-effect': 'off', // Allow direct setState in useEffect
-
     },
-  },
+  }
 );

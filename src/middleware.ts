@@ -1,4 +1,3 @@
-import { decodeToken } from '@/libs/utils';
 import arcjet, { detectBot } from '@arcjet/next';
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
@@ -6,15 +5,15 @@ import { routing } from './libs/i18nRouting';
 
 const handleI18nRouting = createMiddleware(routing);
 
-const isProtectedPage = (pathname: string): boolean => {
-  return pathname.startsWith('/numerology') || pathname.startsWith('/numerology/result') || pathname === '/' || pathname.startsWith('/ranking') || pathname.startsWith('/gold-mining') || pathname.startsWith('/gold-mining/result') || pathname.startsWith('/box') || pathname.startsWith('/system-diagram');
-};
+// const isProtectedPage = (pathname: string): boolean => {
+//   return pathname.startsWith('/numerology') || pathname.startsWith('/numerology/result') || pathname === '/' || pathname.startsWith('/ranking') || pathname.startsWith('/gold-mining') || pathname.startsWith('/gold-mining/result') || pathname.startsWith('/box') || pathname.startsWith('/system-diagram');
+// };
 
-const isAuthPage = (pathname: string): boolean => {
-  return pathname.startsWith('/login')
-    || pathname.startsWith('/verify-email')
-    || pathname.startsWith('/kyc');
-};
+// const isAuthPage = (pathname: string): boolean => {
+//   return pathname.startsWith('/login')
+//     || pathname.startsWith('/verify-email')
+//     || pathname.startsWith('/kyc');
+// };
 
 // Arcjet security setup
 const aj = arcjet({
@@ -34,29 +33,29 @@ const aj = arcjet({
 export default async function middleware(request: NextRequest) {
   // await tokenMiddleware(request);
   const pathname = request.nextUrl.pathname;
-  const pathenameAndSearchParams = pathname + request.nextUrl.search;
+  // const pathenameAndSearchParams = pathname + request.nextUrl.search;
 
-  const accessToken = request.cookies.get('accessToken9x9')?.value;
+  // const accessToken = request.cookies.get('accessToken9x9')?.value;
 
-  const refreshToken = request.cookies.get('refreshToken9x9')?.value;
-  // Set custom header with pathname
+  // const refreshToken = request.cookies.get('refreshToken9x9')?.value;
+  // // Set custom header with pathname
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
 
   // Safely parse authData cookie
-  let isAuthenticated: boolean | undefined;
-  const authDataCookie = request.cookies.get('authData');
-  const now = Math.round(new Date().getTime() / 1000);
-  const isTokenExpired = accessToken ? decodeToken(accessToken).exp < now : false;
+  // let isAuthenticated: boolean | undefined;
+  // const authDataCookie = request.cookies.get('authData');
+  // const now = Math.round(new Date().getTime() / 1000);
+  // const isTokenExpired = accessToken ? decodeToken(accessToken).exp < now : false;
 
-  if (authDataCookie) {
-    try {
-      const parsed = JSON.parse(authDataCookie.value);
-      isAuthenticated = parsed?.isKyc;
-    } catch (error) {
-      console.error('❌ Failed to parse authData cookie in middleware:', error);
-    }
-  }
+  // if (authDataCookie) {
+  //   try {
+  //     const parsed = JSON.parse(authDataCookie.value);
+  //     isAuthenticated = parsed?.isKyc;
+  //   } catch (error) {
+  //     console.error('❌ Failed to parse authData cookie in middleware:', error);
+  //   }
+  // }
 
   const requestWithHeaders = new NextRequest(request.url, {
     ...request,
@@ -80,27 +79,27 @@ export default async function middleware(request: NextRequest) {
   }
 
   // Redirect unauthenticated users from protected routes
-  if (isProtectedPage(pathname)) {
-    if (!isAuthenticated) {
-      const loginUrl = new URL('/login', request.url);
-      return NextResponse.redirect(loginUrl);
-    }
-  }
+  // if (isProtectedPage(pathname)) {
+  //   if (!isAuthenticated) {
+  //     const loginUrl = new URL('/login', request.url);
+  //     return NextResponse.redirect(loginUrl);
+  //   }
+  // }
 
-  // Redirect authenticated users away from login/welcome pages
-  if ((isAuthPage(pathname) && isAuthenticated)) {
-    const homeUrl = new URL('/welcome', request.url);
-    return NextResponse.redirect(homeUrl);
-  }
+  // // Redirect authenticated users away from login/welcome pages
+  // if ((isAuthPage(pathname) && isAuthenticated)) {
+  //   const homeUrl = new URL('/welcome', request.url);
+  //   return NextResponse.redirect(homeUrl);
+  // }
 
-  if (
-    pathname !== '/refresh-token' && (isTokenExpired && refreshToken) && isProtectedPage(pathname)
-  ) {
-    const url = new URL(`/refresh-token`, request.url);
-    url.searchParams.set('refreshToken', refreshToken);
-    url.searchParams.set('redirect', pathenameAndSearchParams);
-    return NextResponse.redirect(url);
-  }
+  // if (
+  //   pathname !== '/refresh-token' && (isTokenExpired && refreshToken) && isProtectedPage(pathname)
+  // ) {
+  //   const url = new URL(`/refresh-token`, request.url);
+  //   url.searchParams.set('refreshToken', refreshToken);
+  //   url.searchParams.set('redirect', pathenameAndSearchParams);
+  //   return NextResponse.redirect(url);
+  // }
   // Apply i18n routing
   return handleI18nRouting(requestWithHeaders);
 }

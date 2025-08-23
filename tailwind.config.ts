@@ -1,4 +1,3 @@
-// ✅ Bạn đang dùng đúng cú pháp cho Tailwind 4
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -22,5 +21,8 @@ const config: Config = {
       },
     },
   },
+  plugins: [],
 };
-export default config;
+
+// CJS export
+module.exports = config;
