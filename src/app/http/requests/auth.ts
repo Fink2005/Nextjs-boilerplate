@@ -1,9 +1,8 @@
 import { http } from '@/app/http/apiRequest';
-import type { LoginPayload, LoginResponse } from '@/types/auth';
 
 const authRequests = {
-  async login(body: LoginPayload): Promise<LoginResponse> {
-    return await http.post<LoginResponse>('/auth/login', body);
+  async login(body: any): Promise<any> {
+    return await http.post<any>('/auth/login', body);
   },
   async refreshToken(token: string): Promise<{ success: boolean } | null> {
     return await http.post<{ success: boolean } | null>('/auth/refresh-token', token);

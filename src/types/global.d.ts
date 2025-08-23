@@ -5,25 +5,7 @@ type Messages = typeof import('../locales/en.json');
 declare interface IntlMessages extends Messages {}
 
 declare global {
-  interface Window {
-    safepalProvider?: {
-      connect: () => Promise<void>;
-      request: ({ method, params }: {
-        method: string;
-        params: string[];
-      }) => Promise<string>;
-      enable: () => Promise<string[]>;
-      getAccount: () => Promise<{
-        toString: () => string;
-      }>;
-    };
-    ethereum?: {
-      request: ({ method, params }: {
-        method: string;
-        params?: any[];
-      }) => Promise<any>;
-    };
-  }
+
 }
 
 export { };
