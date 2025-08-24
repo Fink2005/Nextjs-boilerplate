@@ -10,6 +10,11 @@ export type ApiRequestConfig = {
   headers: Record<string, string>;
   body?: string | FormData | undefined;
   credentials?: RequestCredentials;
+  cache?: RequestCache;
+  next?: {
+    revalidate?: number | false;
+    tags?: string[];
+  };
 };
 type CustomOptions = Omit<RequestInit, 'method'> & {
   nextServer?: string | undefined;
@@ -66,6 +71,8 @@ const apiRequest = async <T>(
         ...baseHeaders,
         ...options?.headers
       } as any,
+      ...(options?.next && { next: options.next }),
+      ...(options?.cache && { cache: options.cache }),
       credentials: 'include',
     };
     const response = await fetch(`${baseUrl}${endpoint}`, config);
