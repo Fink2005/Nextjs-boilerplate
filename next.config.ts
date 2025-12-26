@@ -3,9 +3,6 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/libs/i18n.ts');
 
 const baseConfig = {
-  eslint: {
-    dirs: ['.'],
-  },
   poweredByHeader: false,
   reactStrictMode: false,
 };
@@ -16,11 +13,16 @@ const config = withNextIntl(baseConfig);
 const finalConfig = {
   ...config,
   async rewrites() {
-    console.log('✅ Rewrites function called'); // <--- Add this!
+    console.log('✅ Rewrites function called');
+    const apiBase = process.env.NEXT_PUBLIC_API_BASE_SERVER;
+    if (!apiBase) {
+      console.warn('❌ NEXT_PUBLIC_API_BASE_SERVER is not defined! Rewrites will be skipped.');
+      return [];
+    }
     return [
       {
         source: '/request/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_BASE_SERVER}/:path*`,
+        destination: `${apiBase}/:path*`,
       },
     ];
   },
