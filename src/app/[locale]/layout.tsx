@@ -18,40 +18,28 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://gasy-9x9-plus-fe.vercel.app/'), // Replace with your actual domain
-  icons: [
-    {
-      rel: 'apple-touch-icon',
-      url: '/apple-icon.png',
-    },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '32x32',
-      url: '/icon0.svg',
-    },
-    {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '16x16',
-      url: '/favicon.ico',
-    },
-    {
-      rel: 'icon',
-      url: '/favicon.ico',
-    },
-  ],
+  metadataBase: new URL('https://gasy-9x9-plus-fe.vercel.app'),
+
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+
+  },
+
   openGraph: {
-    title: '9x9 Plus',
-    description: 'HÀNH TRÌNH LAN TOẢ GIÁ TRỊ BẮT ĐẦU TỪ ĐÂY',
-    url: 'https://gasy-9x9-plus-fe.vercel.app/',
-    siteName: '9x9 Plus',
+    title: 'Truyen AI - Nền tảng truyện tranh AI hàng đầu Việt Nam',
+    description: 'Khám phá và tạo ra những câu chuyện tranh độc đáo với Truyen AI, nơi trí tuệ nhân tạo gặp gỡ sáng tạo.',
+    url: '/',
+    siteName: 'Truyen AI',
     images: [
       {
-        url: '/apple-icon.png',
+        url: '/truyenai.png',
         width: 1200,
         height: 630,
-        alt: '9x9 Plus Logo',
+        alt: 'Truyen AI Logo',
       },
     ],
     type: 'website',
